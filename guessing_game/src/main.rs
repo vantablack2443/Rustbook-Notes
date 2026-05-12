@@ -3,32 +3,30 @@ use rand::Rng;
 use std::cmp::Ordering;
 use colored::*; 
 
+// Define a struct to represent a guess, ensuring that it is always valid
+pub struct Guess {
+    value: u32,
+}
+
+impl Guess {
+    pub fn new(value: u32) -> Result<Guess, String> {
+        if value > 100 || value < 1 {
+            return Err(format!("Guess value must be between 1 and 100, got {}.", value));
+        }
+        Ok(Guess { value })
+    }
+
+    pub fn value(&self) -> u32 {
+        self.value
+    }
+}
+
 fn main() {
 
-    // Define a struct to represent a guess, ensuring that it is always valid
-    pub struct Guess {
-        value: u32,
-    }
-
-    impl Guess {
-        pub fn new(value: u32) -> Result<Guess, String> {
-            if value > 100 || value < 1{
-                return Err(format!("Guess value must be between 1 and 100, got {}.", value));
-            }
-            Ok(Guess { value })
-        }
-
-        pub fn value(&self) -> u32 {
-            self.value
-        }
-    }
-    
-
-    //GAME STARTS HERE
-    println!("Welcome to the Guessing Game!"); 
+    println!("Welcome to the Guessing Game!");
 
     let secret_number = rand::thread_rng().gen_range(1, 101);
-    print!("Secret number is: {} \n", secret_number); // For testing purposes, you can remove this line in production
+    print!("Secret number is: {} \n", secret_number); // For testing purposes
 
     loop {
         println!("Please enter your guess (between 1 and 100): ");
@@ -88,3 +86,24 @@ fn main() {
 //     v.push(6);
  
 // }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_guess_valid() {
+        let guess: Result<Guess, String> = Guess::new(50);
+        assert!(guess.is_ok());
+        assert_eq!(guess.unwrap().value(), 50);
+    }
+
+    #[test]
+    fn test_invalid_guess_too_low() {
+        let guess: Result<Guess, String> = Guess::new(0);
+        assert!(guess.is_err());
+        assert_eq!(guess.err().unwrap(), "Guess value must be between 1 and 100, got 0.");
+    }
+
+}
