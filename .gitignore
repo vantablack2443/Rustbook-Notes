@@ -1,0 +1,27 @@
+# Rust/Cargo
+/target/
+**/target/
+**/debug/
+**/release/
+/Cargo.lock
+**/Cargo.lock
+
+# IntelliJ / VS Code
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.rlib
+*.rmeta
+*.d
+*.log
+
+# Rustfmt
+**/*.rs.bk
+
+# Preserve nested repo metadata during top-level Git initialization
+**/.git_backup_toprepo/
