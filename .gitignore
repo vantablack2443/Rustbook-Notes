@@ -1,9 +1,7 @@
 # Rust/Cargo
-/target/
 **/target/
 **/debug/
 **/release/
-/Cargo.lock
 **/Cargo.lock
 
 # IntelliJ / VS Code
@@ -23,5 +21,3 @@ Thumbs.db
 # Rustfmt
 **/*.rs.bk
 
-# Preserve nested repo metadata during top-level Git initialization
-**/.git_backup_toprepo/
