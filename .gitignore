@@ -21,3 +21,6 @@ Thumbs.db
 # Rustfmt
 **/*.rs.bk
 
+# Local output files
+minigrep/output.txt
+
