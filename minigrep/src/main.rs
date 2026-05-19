@@ -1,7 +1,7 @@
 use std::env;
-use std::error::Error;
-use std::fs;
+
 use std::process;
+use minigrep::Config;
 
 fn main() {
 
@@ -19,35 +19,8 @@ fn main() {
 
 
 
-    if let Err(e) =run(config){
+    if let Err(e) =minigrep::run(config){
         println!("Application error: {}", e);
         process::exit(1);
     }
 }
-
-fn run(config:Config)-> Result<(), Box<dyn Error>>{
-    let content = fs::read_to_string(config.filename)?;
-    // .expect("Something went wrong reading the file");
-    // println!("Arguments: {:?}", args);
-    println!("Content: \n{}", content);
-    
-    Ok(())
-
-}
-
-struct Config{
-    query: String,
-    filename: String
-}
-
-impl Config{
-    fn new(args:&[String]) -> Result<Config, &str>{
-        if args.len() < 3 {
-            return Err("Not enough arguments\n");
-        }
-        let query = args[1].clone();
-        let filename = args[2].clone();
-        Ok(Config{query, filename})
-    }
-}
-
