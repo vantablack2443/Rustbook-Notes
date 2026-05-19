@@ -13,8 +13,8 @@ fn main() {
     });
 
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.filename);
+    println!("Searching for : {}", config.query);
+    println!("In file : {}", config.filename);
 
 
 
