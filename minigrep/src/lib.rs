@@ -2,6 +2,7 @@ use std::error::Error;
 use std::fs;
 use std::env;
 
+// run function to read the content of the file and search for the query in the content
 pub fn run(config: Config) -> Result<(), Box<dyn Error>>{
     let content = fs::read_to_string(config.filename)?;
     // .expect("Something went wrong reading the file");
@@ -20,12 +21,14 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>>{
 
 }
 
+// Config struct to hold the query and filename
 pub struct Config{
     pub query: String,
     pub filename: String,
     pub case_sensitive: bool
 }
 
+// implementation of the Config struct to create a new Config instance from the command line arguments
 impl Config{
     pub fn new(args:&[String]) -> Result<Config, &str>{
         if args.len() < 3 {
@@ -41,6 +44,8 @@ impl Config{
 }
 
 
+// function to search for the query in the content in a case sensitive way
+
 pub fn search_case_sensitive <'a>(query: &str, content: &'a str) -> Vec<&'a str>{
 
     let mut results = Vec::new();
@@ -53,6 +58,8 @@ pub fn search_case_sensitive <'a>(query: &str, content: &'a str) -> Vec<&'a str>
     results
 }
 
+
+// function to search for the query in the content in a case insensitive way
 pub fn search_case_insensitive <'a>(query: &str, content: &'a str) -> Vec<&'a str>{
 
     let mut results = Vec::new();
@@ -65,6 +72,8 @@ pub fn search_case_insensitive <'a>(query: &str, content: &'a str) -> Vec<&'a st
     results
 }
 
+
+// tests for the search functions
 #[cfg(test)]
 mod tests{
     use super::*;
@@ -80,6 +89,7 @@ help me mister damu.";
         assert_eq!(vec!["help me mister damu."], 
         search_case_sensitive(query, content));
     }
+
 
     #[test]
     fn case_insensitive(){

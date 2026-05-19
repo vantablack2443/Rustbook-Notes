@@ -5,6 +5,7 @@ use minigrep::Config;
 
 fn main() {
 
+    // getting the arguments from command line
     let args: Vec<String> = env::args().collect();
 
     let config = Config::new(&args).unwrap_or_else(|err|{
@@ -18,7 +19,7 @@ fn main() {
 
 
 
-
+    // reading the content of the file and searching for the query in the content
     if let Err(e) =minigrep::run(config){
         eprintln!("Application error: {}", e);
         process::exit(1);
